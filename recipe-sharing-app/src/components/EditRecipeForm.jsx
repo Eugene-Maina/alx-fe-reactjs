@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useRecipeStore } from './recipeStore';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const EditRecipeForm = ({ recipe }) => {
   const updateRecipe = useRecipeStore(state => state.updateRecipe);
   const navigate = useNavigate();
@@ -11,13 +13,14 @@ const EditRecipeForm = ({ recipe }) => {
     ingredients: recipe.ingredients?.join('\n') || '',
     instructions: recipe.instructions || ''
   });
+ 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     updateRecipe(recipe.id, {
       ...formData,
       ingredients: formData.ingredients.split('\n').filter(i => i.trim())
