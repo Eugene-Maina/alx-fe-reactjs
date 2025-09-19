@@ -15,3 +15,31 @@ export const useRecipeStore = create((set) => ({
     recipes: state.recipes.filter((recipe) => recipe.id !== id)
   }))
 }));
+
+const useRecipeStore = create((set) => ({
+  recipes: [],
+  searchTerm: '',
+  filteredRecipes: [], // Initially empty, or set to recipes if needed
+  setSearchTerm: (term) =>
+    set((state) => ({
+      searchTerm: term,
+      // Automatically update filteredRecipes when searchTerm changes
+      filteredRecipes: state.recipes.filter((recipe) =>
+        recipe.title?.toLowerCase().includes(term.toLowerCase())
+      ),
+    })),
+  setRecipes: (recipes) =>
+    set((state) => ({
+      recipes,
+      // Automatically update filteredRecipes when recipes change
+      filteredRecipes: recipes.filter((recipe) =>
+        recipe.title?.toLowerCase().includes(state.searchTerm.toLowerCase())
+      ),
+    })),
+  filterRecipes: () =>
+    set((state) => ({
+      filteredRecipes: state.recipes.filter((recipe) =>
+        recipe.title?.toLowerCase().includes(state.searchTerm.toLowerCase())
+      ),
+    })),
+}));
