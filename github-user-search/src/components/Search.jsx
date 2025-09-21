@@ -32,7 +32,7 @@ const Search = () => {
       setUserData(data);
       setLoading(false);
     } catch (err) {
-      setError('Looks like we can\'t find the user');
+      setError('Looks like we cant find the user');
       setLoading(false);
     }
   };
